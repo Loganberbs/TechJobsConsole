@@ -115,10 +115,17 @@ namespace TechJobsConsole
 
             return choiceKeys[choiceIdx];
         }
-
-        private static void PrintJobs(List<Dictionary<string, string>> someJobs)
+ private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("PrintJobs is not implemented yet");
+            foreach (Dictionary<string, string> job in someJobs){
+                Console.WriteLine("*****");
+               
+                foreach (KeyValuePair<string, string> section in job){
+                Console.WriteLine("{0}: {1}", section.Key, section.Value);
+            }    
+                Console.WriteLine("*****");
+                Console.WriteLine(Environment.NewLine);                
+            }
         }
     }
 }
