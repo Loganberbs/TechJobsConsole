@@ -115,6 +115,10 @@ namespace TechJobsConsole
 
             return choiceKeys[choiceIdx];
         }
+
+/* 
+          "PrintJobs" method will display a list of jobs based on the users input using the information compiled in the JobData Class.
+*/
  private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
             foreach (Dictionary<string, string> job in someJobs){
