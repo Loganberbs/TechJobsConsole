@@ -2,10 +2,12 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System;
+using System.Runtime.CompilerServices;
 
 namespace TechJobsConsole
 {
-    class JobData
+    static class JobData
     {
         static List<Dictionary<string, string>> AllJobs = new List<Dictionary<string, string>>();
         static bool IsDataLoaded = false;
@@ -37,7 +39,36 @@ namespace TechJobsConsole
             }
             return values;
         }
+        public static bool Contains(this string searchable, string searchTerm, StringComparison comparisonType)
+        {
+            //Ignores upper/lower case while checking to see if searchTerm is found in searchable
+            
+            return searchable?.IndexOf(searchTerm, comparisonType) >= 0;
+       
+        }//returns true or false based on search input 
 
+        public static List<Dictionary<string, string>> FindByValue(string searchTerm)
+        {
+            LoadData();
+           
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+           
+            foreach(Dictionary<string, string> row in AllJobs)
+            {
+                //
+                foreach(KeyValuePair<string, string> kvp in row)
+                {
+                    bool foundInKey = kvp.Key.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase);
+                    bool foundInValue = kvp.Value.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase);
+
+                    if(foundInKey || foundInValue)
+                    {
+                        jobs.Add(row);
+                    }
+                }
+            }
+            return jobs;
+        }
         public static List<Dictionary<string, string>> FindByColumnAndValue(string column, string value)
         {
             // load data, if not already loaded

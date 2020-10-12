@@ -63,13 +63,14 @@ namespace TechJobsConsole
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        searchResults = JobData.FindByValue(searchTerm);
                     }
+                   
                     else
                     {
                         searchResults = JobData.FindByColumnAndValue(columnChoice, searchTerm);
-                        PrintJobs(searchResults);
-                    }
+                        }
+                    PrintJobs(searchResults);
                 }
             }
         }
@@ -112,23 +113,33 @@ namespace TechJobsConsole
                 }
 
             } while (!isValidChoice);
-
+           
             return choiceKeys[choiceIdx];
         }
 
-/* 
-          "PrintJobs" method will display a list of jobs based on the users input using the information compiled in the JobData Class.
-*/
- private static void PrintJobs(List<Dictionary<string, string>> someJobs)
+        /* 
+                  "PrintJobs" method will display a list of jobs based on the users input using the information compiled in the JobData Class.
+        */
+        private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            foreach (Dictionary<string, string> job in someJobs){
-                Console.WriteLine("*****");
-               
-                foreach (KeyValuePair<string, string> section in job){
-                Console.WriteLine("{0}: {1}", section.Key, section.Value);
-            }    
-                Console.WriteLine("*****");
-                Console.WriteLine(Environment.NewLine);                
+            if (someJobs.Count > 0)
+            {
+
+                foreach (Dictionary<string, string> jobs in someJobs)
+                {
+                    Console.WriteLine("*****");
+
+                    foreach (KeyValuePair<string, string> kvp in jobs)
+                    {
+                        Console.WriteLine($"{kvp.Key} : {kvp.Value}");
+                    }
+                    Console.WriteLine("*****");
+                }
+            }
+
+            else
+            {
+                Console.WriteLine("Your search did not match any results from our list.");
             }
         }
     }
