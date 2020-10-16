@@ -58,8 +58,8 @@ namespace TechJobsConsole
                 //
                 foreach(KeyValuePair<string, string> kvp in row)
                 {
-                    bool foundInKey = kvp.Key.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase);
-                    bool foundInValue = kvp.Value.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase);
+                    bool foundInKey = kvp.Key.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
+                    bool foundInValue = kvp.Value.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
 
                     if(foundInKey || foundInValue)
                     {
@@ -79,8 +79,10 @@ namespace TechJobsConsole
             foreach (Dictionary<string, string> row in AllJobs)
             {
                 string aValue = row[column];
-
-                if (aValue.Contains(value))
+                bool found = aValue.Contains(value, StringComparison.OrdinalIgnoreCase);
+                
+               
+                if (found)  
                 {
                     jobs.Add(row);
                 }
